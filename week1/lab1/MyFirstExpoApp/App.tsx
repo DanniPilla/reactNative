@@ -1,76 +1,98 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { useState } from "react";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function App() {
+  const myButtons = [
+    [7, 8, 9, "+"],
+    [4, 5, 6, "-"],
+    [1, 2, 3, "x"],
+  ];
+
+  const [calculatorValue, setCalculatorValue] = useState(0);
+
   return (
-    // Overall page view container
     <View style={styles.container}>
-      <Text>Calculator</Text>
-
-      {/* calculator specific container */}
-      <View style={styles.calcContainer}>
-        <TextInput style={styles.input} placeholder="0"></TextInput>
-
-        <View style={styles.textButton}>
-          <Button title="1"></Button>
-          <Button title="2"></Button>
-          <Button title="3"></Button>
-          <Button title="+"></Button>
+      <TextInput
+        placeholder="100"
+        style={styles.input}
+        placeholderTextColor="white"
+        value={calculatorValue.toString()}
+      />
+      {myButtons.map((row: (number | string)[]) => (
+        <View style={styles.row}>
+          {row.map((buttonNumber: number | string) => (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                setCalculatorValue(calculatorValue + buttonNumber);
+              }}
+            >
+              <Text style={styles.buttonText}>{buttonNumber}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-        <View style={styles.textButton}>
-          <Button title="4"></Button>
-          <Button title="5"></Button>
-          <Button title="6"></Button>
-          <Button title="-"></Button>
-        </View>
-        <View style={styles.textButton}>
-          <Button title="7"></Button>
-          <Button title="8"></Button>
-          <Button title="9"></Button>
-          <Button title="X"></Button>
-        </View>
-        <View style={styles.textButton}>
-          <Button title="C"></Button>
-          <Button title="0"></Button>
-          <Button title="="></Button>
-          <Button title="/"></Button>
-        </View>
+      ))}
+      <View style={styles.row}>
+        <TouchableOpacity style={{ ...styles.button, ...styles.bigButton }}>
+          <Text style={styles.buttonText}>0</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            setCalculatorValue(0);
+          }}
+        >
+          <Text style={styles.buttonText}>Reset</Text>
+        </TouchableOpacity>
       </View>
-
       <StatusBar style="auto" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  input: {
+    width: "100%",
+    textAlign: "right",
+    fontSize: 28,
+    backgroundColor: "#4C4C4C",
+    color: "white",
+    height: "20%",
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: 20,
-  },
-  calcContainer: {
-    width: "90%",
-    padding: 20,
-    borderRadius: 10,
-    alignItems: "center",
-    backgroundColor: "pink",
-  },
-  input: {
     width: "100%",
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: "grey",
-    textAlign: "right",
-    fontSize: 20,
-    color: "white",
   },
-  textButton: {
+  row: {
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
-    marginBottom: 10,
-    borderColor: "black",
+    height: "20%",
+  },
+  button: {
+    backgroundColor: "#D6D6D6",
+    flexGrow: 1,
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#75737345",
+  },
+  bigButton: {
+    flexGrow: 100,
+    maxWidth: "66.6666666%",
+  },
+  buttonText: {
+    fontSize: 28,
+    textAlign: "center",
   },
 });
