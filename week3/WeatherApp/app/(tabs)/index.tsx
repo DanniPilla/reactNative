@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     position: "relative",
     width: "100%",
-    height: 250, // Adjust based on your UI needs
+    height: 250,
     justifyContent: "center",
     alignItems: "center",
   },

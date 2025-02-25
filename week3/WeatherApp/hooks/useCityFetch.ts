@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 
-const API_KEY = "ffcfc51d71c399772365273321c837ce"
 
-// const API_KEY = process.env['API_KEY'];
+const API_KEY = process.env['EXPO_PUBLIC_API_KEY'];
 
 export const useCityFetch = (cityName: string) => {
   const [cityData, setCityData] = useState<any>(null);
